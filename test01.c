@@ -133,13 +133,55 @@ int test03 ( void )
   return 0;
 }
 
+int test04 ( void ) {
+  stack_t *sp = NULL;
+
+  printf("\ntest04 - Stack overflow\n" );
+
+  sp = StackCreate(2);
+
+  push( sp, 100 );
+  push( sp, 200 );
+  push( sp, 300 );    /* Should fail here */
+  StackDump(sp, 0);
+
+  printf("pop %d\n", pop(sp));
+  printf("pop %d\n", pop(sp));
+  printf("pop %d\n", pop(sp));
+  StackDump(sp, 0);
+
+  printf ("test04 - Ends\n");
+  
+  return 0;
+}
+
+int test05 ( void ) {
+  stack_t *sp = NULL;
+
+  printf("test05 - peeking\n");
+
+  sp = StackCreate(3);
+  printf("Peeking with nothing there %d\n", peek(sp));
+
+  push(sp, 2001);
+  push(sp, 2002);
+  push(sp, 2003);
+
+  StackDump(sp, 0);
+  printf("Peeking with something there %d\n", peek(sp));
+
+  return 0;
+}
+
 int test_run ( void ) {
   int error_code = 0;
 
   error_code = test01();    /* Run one of the tests */
   error_code = test02();    /* Run one of the tests */
   error_code = test03();    /* Run one of the tests */  
-
+  error_code = test04();    /* Run one of the tests */
+  error_code = test05();    /* Run one of the tests */
+  
   return error_code;
 }
 
